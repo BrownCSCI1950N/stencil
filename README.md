@@ -3,9 +3,7 @@ Make sure to re-fill this out for every project.
 
 --------------------------------------------------------------
 
-Repository name:
-
-Submission commit hash (hexadecimal string):
+Banner ID:
 
 Already uploaded demo onto Slack: YES / NO
 
