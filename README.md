@@ -1,3 +1,27 @@
-TODO: include the assignment's list of requirements and how to verify them. After handing in, don't forget to upload a demo video onto Slack!
+Fill out this README and turn in this file on Gradescope. 
+Make sure to re-fill this out for every project.
 
-Note for Tic: don't worry about the debugger for now. You'll use it for Alc later.
+--------------------------------------------------------------
+
+Repository name:
+
+Submission commit hash (hexadecimal string):
+
+Already uploaded demo onto Slack: YES / NO
+
+--------------------------------------------------------------
+
+Primary Requirements:
+- <Requirement #1>
+  <How to verify>
+
+- <Requirement #2>
+  <How to verify>
+
+Secondary Requirements:
+- <Requirement #1>
+  <How to verify> 
+
+--------------------------------------------------------------
+
+Hours spent on assignment:
