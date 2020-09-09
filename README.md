@@ -1,5 +1,5 @@
-Fill out this README and turn in this file on Gradescope. 
-Make sure to re-fill this out for every project.
+Fill out this README before turning in this project. 
+Make sure to fill this out again for each assignment!
 
 --------------------------------------------------------------
 
