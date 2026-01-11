@@ -475,9 +475,8 @@ public final class Vec2d implements Serializable {
 		if (obj == null || obj.getClass() != Vec2d.class)
 			return false;
 		Vec2d other = (Vec2d) obj;
-		return Double.doubleToLongBits(this.x) == Double.doubleToLongBits(other.x)
-				&& Double.doubleToLongBits(this.y) == Double.doubleToLongBits(other.y);
-	}
+        return this.x == other.x && this.y == other.y;
+    }
 
 	@Override
 	public final String toString() {
