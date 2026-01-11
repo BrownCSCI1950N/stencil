@@ -1,46 +1,49 @@
 package debugger.collisions;
 
-import debugger.support.Vec2d;
-import debugger.support.interfaces.Week3Reqs;
+import debugger.support.Vec2dDebugger;
+import debugger.support.requirements.Week3Reqs;
+import debugger.collisions.shapes.AABDebugger;
+import debugger.collisions.shapes.CircleDebugger;
 
 /**
- * Fill this class in during Week 3. Make sure to also change the week variable in Display.java.
+ * Fill this class in during Project 3 (Wiz 1). Make sure to also change the week variable in Main.java.
  */
 public final class Week3 extends Week3Reqs {
 
-	// AXIS-ALIGNED BOXES
+	// TODO AXIS-ALIGNED BOXES mtvs
 	
 	@Override
-	public Vec2d collision(AABShape s1, AABShape s2) {
+	public Vec2dDebugger collision(AABDebugger s1, AABDebugger s2) {
 		return null;
 	}
 
 	@Override
-	public Vec2d collision(AABShape s1, CircleShape s2) {
+	public Vec2dDebugger collision(AABDebugger s1, CircleDebugger s2) {
 		return null;
 	}
 
 	@Override
-	public Vec2d collision(AABShape s1, Vec2d s2) {
+	public Vec2dDebugger collision(AABDebugger s1, Vec2dDebugger s2) {
 		return null;
 	}
 	
-	// CIRCLES
+	// TODO CIRCLES mtvs
+
 
 	@Override
-	public Vec2d collision(CircleShape s1, AABShape s2) {
-		Vec2d f = collision(s2, s1);
-		return f == null ? null : f.reflect();
-	}
-
-	@Override
-	public Vec2d collision(CircleShape s1, CircleShape s2) {
+	public Vec2dDebugger collision(CircleDebugger s1, CircleDebugger s2) {
 		return null;
 	}
 
 	@Override
-	public Vec2d collision(CircleShape s1, Vec2d s2) {
+	public Vec2dDebugger collision(CircleDebugger s1, Vec2dDebugger s2) {
 		return null;
 	}
+
+    @Override
+    public Vec2dDebugger collision(CircleDebugger s1, AABDebugger s2) {
+        Vec2dDebugger f = collision(s2, s1);
+        return f == null ? null : f.reflect();
+    }
 
 }

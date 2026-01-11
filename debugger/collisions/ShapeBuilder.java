@@ -1,37 +1,39 @@
 package debugger.collisions;
 
-import debugger.support.Vec2d;
-import debugger.support.shapes.AABShapeDefine;
-import debugger.support.shapes.CircleShapeDefine;
-import debugger.support.shapes.PolygonShapeDefine;
+import debugger.support.Vec2dDebugger;
+import debugger.support.visual.AABDebuggerShapeDefine;
+import debugger.support.visual.CircleDebuggerShapeDefine;
+import debugger.support.visual.PolygonDebuggerShapeDefine;
 
 public class ShapeBuilder {
 
-	public static AABShapeDefine[] getBoxes() {
-		return new AABShapeDefine[] {
-				new AABShapeDefine(new Vec2d(100, 120), new Vec2d(60, 35)),
-				new AABShapeDefine(new Vec2d(400,  10), new Vec2d(35,  60)),
-				new AABShapeDefine(new Vec2d(330, 410), new Vec2d(45, 45)),
-				new AABShapeDefine(new Vec2d(530, 510), new Vec2d(100, 100))
+	public static AABDebuggerShapeDefine[] getBoxes() {
+		return new AABDebuggerShapeDefine[] {
+				new AABDebuggerShapeDefine(new Vec2dDebugger(100, 120), new Vec2dDebugger(60, 35)),
+				new AABDebuggerShapeDefine(new Vec2dDebugger(400,  10), new Vec2dDebugger(35,  60)),
+				new AABDebuggerShapeDefine(new Vec2dDebugger(330, 410), new Vec2dDebugger(45, 45)),
+				new AABDebuggerShapeDefine(new Vec2dDebugger(530, 510), new Vec2dDebugger(100, 100))
 			};
 	}
 	
-	public static CircleShapeDefine[] getCircles() {
-		return new CircleShapeDefine[] {
-				new CircleShapeDefine(new Vec2d(150, 200), 10),
-				new CircleShapeDefine(new Vec2d(500, 380), 30),
-				new CircleShapeDefine(new Vec2d(300, 220), 20)
+	public static CircleDebuggerShapeDefine[] getCircles() {
+		return new CircleDebuggerShapeDefine[] {
+				new CircleDebuggerShapeDefine(new Vec2dDebugger(150, 200), 10),
+				new CircleDebuggerShapeDefine(new Vec2dDebugger(500, 380), 30),
+				new CircleDebuggerShapeDefine(new Vec2dDebugger(300, 220), 20)
 			};
 	}
 	
-	public static PolygonShapeDefine[] getPolygons() {
-		return new PolygonShapeDefine[] {
-			new PolygonShapeDefine(new Vec2d(210, 195), new Vec2d(230, 195), new Vec2d(240, 170),
-					new Vec2d(220, 160), new Vec2d(200, 170)),
-			new PolygonShapeDefine(new Vec2d(220, 195), new Vec2d(250, 195), new Vec2d(280, 170),
-					new Vec2d(230, 160), new Vec2d(210, 170)),
-			new PolygonShapeDefine( new Vec2d(.5 * 100,1 * 100), new Vec2d(8 * 100,1 * 100),
-				new Vec2d(8 * 100,.7 * 100), new Vec2d(6 * 100,0 * 100), new Vec2d(.5 * 100,.7 * 100))
+	public static PolygonDebuggerShapeDefine[] getPolygons() {
+		return new PolygonDebuggerShapeDefine[] {
+			new PolygonDebuggerShapeDefine(new Vec2dDebugger(210, 195), new Vec2dDebugger(230, 195), new Vec2dDebugger(240, 170),
+					new Vec2dDebugger(220, 160), new Vec2dDebugger(200, 170)),
+
+			new PolygonDebuggerShapeDefine(new Vec2dDebugger(220, 195), new Vec2dDebugger(250, 195), new Vec2dDebugger(280, 170),
+					new Vec2dDebugger(230, 160), new Vec2dDebugger(210, 170)),
+
+			new PolygonDebuggerShapeDefine(new Vec2dDebugger(50,100), new Vec2dDebugger(800,100),
+				new Vec2dDebugger(800,70), new Vec2dDebugger(600,0), new Vec2dDebugger(50,70))
 		};
 	}
 }

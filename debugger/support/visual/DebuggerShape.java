@@ -1,17 +1,17 @@
-package debugger.support.shapes;
+package debugger.support.visual;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 
 import javafx.scene.shape.Line;
-import debugger.support.Vec2d;
+import debugger.support.Vec2dDebugger;
 
-public abstract class Shape {
+public abstract class DebuggerShape {
 
 	private ArrayList<Line> _mtvs = new ArrayList<Line>();
 	
-	public abstract void move(Vec2d distance);
-	public abstract Vec2d getCenter();
+	public abstract void move(Vec2dDebugger distance);
+	public abstract Vec2dDebugger getCenter();
 	
 	public abstract boolean atLeftEdge();
 	public abstract boolean atTopEdge();
@@ -27,12 +27,12 @@ public abstract class Shape {
 		_mtvs.clear();
 	}
 	
-	public void addMTV(Line line, Vec2d mtv) {
-		Vec2d start = getCenter();
+	public void addMTV(Line line, Vec2dDebugger mtv) {
+		Vec2dDebugger start = getCenter();
 		line.setStartX(start.x);
 		line.setStartY(start.y);
 		
-		Vec2d end = start.plus(mtv);
+		Vec2dDebugger end = start.plus(mtv);
 		line.setEndX(end.x);
 		line.setEndY(end.y);
 		

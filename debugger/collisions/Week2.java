@@ -1,44 +1,47 @@
 package debugger.collisions;
 
-import debugger.support.Vec2d;
-import debugger.support.interfaces.Week2Reqs;
+import debugger.support.Vec2dDebugger;
+import debugger.support.requirements.Week2Reqs;
+import debugger.collisions.shapes.AABDebugger;
+import debugger.collisions.shapes.CircleDebugger;
+
 
 /**
- * Fill this class in during Week 2.
+ * Fill this class in during Project 2 (Alc 2).
  */
 public final class Week2 extends Week2Reqs {
 
-	// AXIS-ALIGNED BOXES
+	// TODO AXIS-ALIGNED BOXES
 	
 	@Override
-	public boolean isColliding(AABShape s1, AABShape s2) {
+	public boolean isColliding(AABDebugger s1, AABDebugger s2) {
 		return false;
 	}
 
 	@Override
-	public boolean isColliding(AABShape s1, CircleShape s2) {
+	public boolean isColliding(AABDebugger s1, CircleDebugger s2) {
 		return false;
 	}
 
 	@Override
-	public boolean isColliding(AABShape s1, Vec2d s2) {
+	public boolean isColliding(AABDebugger s1, Vec2dDebugger s2) {
 		return false;
 	}
 
-	// CIRCLES
+	// TODO CIRCLES
 	
 	@Override
-	public boolean isColliding(CircleShape s1, AABShape s2) {
+	public boolean isColliding(CircleDebugger s1, AABDebugger s2) {
 		return isColliding(s2, s1);
 	}
 
 	@Override
-	public boolean isColliding(CircleShape s1, CircleShape s2) {
+	public boolean isColliding(CircleDebugger s1, CircleDebugger s2) {
 		return false;
 	}
 
 	@Override
-	public boolean isColliding(CircleShape s1, Vec2d s2) {
+	public boolean isColliding(CircleDebugger s1, Vec2dDebugger s2) {
 		return false;
 	}
 

@@ -3,20 +3,16 @@ package debugger.support;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import debugger.collisions.AABShape;
-import debugger.collisions.CircleShape;
-import debugger.collisions.PolygonShape;
-import debugger.collisions.Ray;
-import debugger.collisions.ShapeBuilder;
-import debugger.collisions.Week2;
-import debugger.collisions.Week3;
-import debugger.collisions.Week5;
-import debugger.collisions.Week6;
-import debugger.support.interfaces.CollisionFunctions;
-import debugger.support.shapes.AABShapeDefine;
-import debugger.support.shapes.CircleShapeDefine;
-import debugger.support.shapes.PolygonShapeDefine;
-import debugger.support.shapes.Shape;
+import debugger.collisions.*;
+import debugger.collisions.shapes.AABDebugger;
+import debugger.collisions.shapes.CircleDebugger;
+import debugger.collisions.shapes.PolygonDebugger;
+import debugger.collisions.shapes.RayDebugger;
+import debugger.support.requirements.DebuggerCollisionFunctions;
+import debugger.support.visual.AABDebuggerShapeDefine;
+import debugger.support.visual.CircleDebuggerShapeDefine;
+import debugger.support.visual.PolygonDebuggerShapeDefine;
+import debugger.support.visual.DebuggerShape;
 import javafx.application.Platform;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
@@ -33,22 +29,22 @@ public class CollisionCanvas {
 	
 	private Pane _root;
 	
-	private AABShapeDefine[] _boxes;
+	private AABDebuggerShapeDefine[] _boxes;
 	private Rectangle[] _boxesG;
-	private CircleShapeDefine[] _circles;
+	private CircleDebuggerShapeDefine[] _circles;
 	private Ellipse[] _circlesG;
-	private PolygonShapeDefine[] _polygons;
+	private PolygonDebuggerShapeDefine[] _polygons;
 	private Path[] _polygonsG;
 	
 	private boolean _leftMouseDown = false;
-	private Vec2d _mousePos = new Vec2d(0, 0);
-	private Shape _selected = null;
-	private Shape _hovered = null;
-	private Ray _ray = null;
+	private Vec2dDebugger _mousePos = new Vec2dDebugger(0, 0);
+	private DebuggerShape _selected = null;
+	private DebuggerShape _hovered = null;
+	private RayDebugger _ray = null;
 	private Line _rayG;
 
 	
-	private CollisionFunctions _collisions;	
+	private DebuggerCollisionFunctions _collisions;
 	private int _week;
 	private ArrayList<Line> _mtvPool = new ArrayList<Line>();
 	
@@ -62,10 +58,10 @@ public class CollisionCanvas {
 			mousePress(e.isPrimaryButtonDown());
 		});
 		_root.setOnMouseMoved(e -> {
-			mouseMoved(new Vec2d(e.getX(), e.getY()));
+			mouseMoved(new Vec2dDebugger(e.getX(), e.getY()));
 		});
 		_root.setOnMouseDragged(e -> {
-			mouseMoved(new Vec2d(e.getX(), e.getY()));
+			mouseMoved(new Vec2dDebugger(e.getX(), e.getY()));
 		});
 		
 		_boxes = ShapeBuilder.getBoxes();
@@ -140,7 +136,7 @@ public class CollisionCanvas {
 			// if a ray is available (nothing is hovered and it's week6+),
 			// draw the ray
 			if(_hovered == null && _week >= 6) {
-				_ray = new Ray(_mousePos, Vec2d.ORIGIN);
+				_ray = new RayDebugger(_mousePos, Vec2dDebugger.ORIGIN);
 				
 			// otherwise, select whatever's beneath the mouse
 			} else {
@@ -155,25 +151,25 @@ public class CollisionCanvas {
 		reload();
 	}
 	
-	public void mouseMoved(Vec2d p) {
-		Vec2d src = _mousePos;
-		Vec2d distance = p.minus(src);
+	public void mouseMoved(Vec2dDebugger p) {
+		Vec2dDebugger src = _mousePos;
+		Vec2dDebugger distance = p.minus(src);
 		
 		// if something is selected, move it
 		if(_leftMouseDown && _selected != null) {
 			if((p.x < 0 && _selected.atLeftEdge()) || (p.x > Display.getStageWidth() && _selected.atRightEdge()))
-				distance = new Vec2d(0, distance.y);
+				distance = new Vec2dDebugger(0, distance.y);
 			if((p.y < 0 && _selected.atTopEdge()) || (p.y > Display.getStageHeight() && _selected.atBottomEdge()))
-				distance = new Vec2d(distance.x, 0);
+				distance = new Vec2dDebugger(distance.x, 0);
 			_selected.move(distance);
 		
 		// if there is a ray, update its direction
 		} else if(_leftMouseDown && _ray != null) {
-			_ray = new Ray(_ray.src, p.minus(_ray.src).normalize());	
+			_ray = new RayDebugger(_ray.src, p.minus(_ray.src).normalize());
 			
 		// otherwise, just check to see if we should be hovering anything
 		} else if(!_leftMouseDown) {
-			Vec2d mtv;
+			Vec2dDebugger mtv;
 			_hovered = null;
 			for(int i = 0; i < _boxes.length; i++) {
 				mtv = _collisions.collision(_boxes[i], _mousePos);
@@ -281,7 +277,7 @@ public class CollisionCanvas {
 	}
 	
 	public void loadRectangles() {
-		Rectangle r; AABShape a;
+		Rectangle r; AABDebugger a;
 		for(int i = 0; i < _boxes.length; i++) {
 			r = _boxesG[i];
 			a = _boxes[i];
@@ -299,7 +295,7 @@ public class CollisionCanvas {
 	public void runRectangleCollisions(int i) {
 		boolean mouse = _leftMouseDown ? (_boxes[i] == _selected) : (_boxes[i] == _hovered);
 		
-		Vec2d mtv;
+		Vec2dDebugger mtv;
 		resetMTVs(_boxes[i]);
 
 		boolean collision = false;
@@ -339,7 +335,7 @@ public class CollisionCanvas {
 	}
 	
 	public void loadCircles() {
-		Ellipse e; CircleShape c;
+		Ellipse e; CircleDebugger c;
 		for(int i = 0; i < _circles.length; i++) {
 			e = _circlesG[i];
 			c = _circles[i];
@@ -358,7 +354,7 @@ public class CollisionCanvas {
 	public void runCircleCollisions(int i) {
 		boolean mouse = _leftMouseDown ? (_circles[i] == _selected) : (_circles[i] == _hovered);
 		
-		Vec2d mtv;
+		Vec2dDebugger mtv;
 		resetMTVs(_circles[i]);
 		
 		boolean collision = false;
@@ -398,7 +394,7 @@ public class CollisionCanvas {
 	}
 	
 	public void loadPolygons() {
-		Path p; PolygonShape s;
+		Path p; PolygonDebugger s;
 		for(int i = 0; i < _polygons.length; i++) {
 			p = _polygonsG[i];
 			s = _polygons[i];
@@ -425,7 +421,7 @@ public class CollisionCanvas {
 	public void runPolygonCollisions(int i) {
 		boolean mouse = _leftMouseDown ? (_polygons[i] == _selected) : (_polygons[i] == _hovered);
 		
-		Vec2d mtv;
+		Vec2dDebugger mtv;
 		resetMTVs(_polygons[i]);
 		
 		boolean collision = false;
@@ -496,14 +492,14 @@ public class CollisionCanvas {
 				if(t > 0 && t < minT) minT = t;
 			}
 			
-			Vec2d end = _ray.src.plus(_ray.dir.smult(minT));
+			Vec2dDebugger end = _ray.src.plus(_ray.dir.smult(minT));
 			_rayG.setEndX(end.x);
 			_rayG.setEndY(end.y);
 			
 		}
 	}
 	
-	private double raycastEdge(Ray r, boolean x, boolean lo) {
+	private double raycastEdge(RayDebugger r, boolean x, boolean lo) {
 		double a = x ? r.dir.x : r.dir.y;
 		double b;
 		if(x) {
@@ -518,7 +514,7 @@ public class CollisionCanvas {
 	
 	
 	// returns all stored lines to the line pool
-	public void resetMTVs(Shape s) {
+	public void resetMTVs(DebuggerShape s) {
 		Iterator<Line> iter = s.getMTVs();
 		Line line;
 		while(iter.hasNext()) {

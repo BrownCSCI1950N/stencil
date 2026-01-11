@@ -27,11 +27,16 @@ public class Display extends Application {
 		return week;
 	}
 
-	// TODO: change the week number to one of { 2, 3, 5, 6 } to debug more things
 	private static int week = 2;
 		
 	public static void main(String[] argv) {
 		launch();
+	}
+
+	public static void setWeek(int week) {
+		if(week >= 2 && week <= 6) {
+			Display.week = week;
+		}
 	}
 
 	@Override

@@ -1,29 +1,29 @@
-package debugger.support.shapes;
+package debugger.support.visual;
 
-import debugger.collisions.PolygonShape;
+import debugger.collisions.shapes.PolygonDebugger;
 import debugger.support.Display;
-import debugger.support.Vec2d;
+import debugger.support.Vec2dDebugger;
 
-public class PolygonShapeDefine extends PolygonShape {
+public class PolygonDebuggerShapeDefine extends PolygonDebugger {
 	
-	Vec2d min;
-	Vec2d max;
+	Vec2dDebugger min;
+	Vec2dDebugger max;
 
-	public PolygonShapeDefine(Vec2d ... points) {
+	public PolygonDebuggerShapeDefine(Vec2dDebugger... points) {
 		super(points);
 		double minX = Double.MAX_VALUE, minY = Double.MAX_VALUE, maxX = 0, maxY = 0;
-		for(Vec2d v : points) {
+		for(Vec2dDebugger v : points) {
 			minX = Double.min(minX, v.x);
 			minY = Double.min(minY, v.y);
 			maxX = Double.max(maxX, v.x);
 			maxY = Double.max(maxY, v.y);
 		}
-		min = new Vec2d(minX, minY);
-		max = new Vec2d(maxX, maxY);
+		min = new Vec2dDebugger(minX, minY);
+		max = new Vec2dDebugger(maxX, maxY);
 	}
 	
 	@Override
-	public void move(Vec2d distance) {
+	public void move(Vec2dDebugger distance) {
 		for(int i = 0; i < points.length; i++) {
 			points[i] = points[i].plus(distance);
 		}
@@ -34,17 +34,17 @@ public class PolygonShapeDefine extends PolygonShape {
 	
 	@Override
 	public void bindToCanvas() {
-		Vec2d distance = new Vec2d(0);
+		Vec2dDebugger distance = new Vec2dDebugger(0);
 		if(min.x < 0) {
-			distance = distance.plus(new Vec2d(-min.x, 0));
+			distance = distance.plus(new Vec2dDebugger(-min.x, 0));
 		} else if(max.x >= Display.getStageWidth()) {
-			distance = distance.plus(new Vec2d(Display.getStageWidth() - max.x, 0));
+			distance = distance.plus(new Vec2dDebugger(Display.getStageWidth() - max.x, 0));
 		}
 		
 		if(min.y < 0) {
-			distance = distance.plus(new Vec2d(0, -min.y));
+			distance = distance.plus(new Vec2dDebugger(0, -min.y));
 		} else if(max.y >= Display.getStageHeight()) {
-			distance = distance.plus(new Vec2d(0, Display.getStageHeight() - max.y));
+			distance = distance.plus(new Vec2dDebugger(0, Display.getStageHeight() - max.y));
 		}
 		
 		for(int i = 0; i < points.length; i++) {
@@ -55,7 +55,7 @@ public class PolygonShapeDefine extends PolygonShape {
 	}
 
 	@Override
-	public Vec2d getCenter() {
+	public Vec2dDebugger getCenter() {
 		return min.plus(max).sdiv(2);
 	}
 
